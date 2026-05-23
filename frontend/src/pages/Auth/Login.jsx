@@ -1,3 +1,4 @@
+import LogoIcon from "../../components/LogoIcon";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../lib/supabase";
@@ -28,8 +29,9 @@ export default function Login() {
 
         {/* Logo */}
         <div className="text-center mb-8">
-          <img src="/logo.png" alt="LedgerLite"
-  className="w-16 h-16 object-contain mx-auto mb-4" />
+          <div className="w-16 h-16 bg-[#1E1B4B] rounded-2xl flex items-center justify-center mx-auto mb-4">
+  <LogoIcon size={44} />
+</div>
           <h1 className="text-2xl font-bold text-gray-900">LedgerLite</h1>
           <p className="text-gray-500 text-sm mt-1">Smart bookkeeping for African SMEs</p>
         </div>
