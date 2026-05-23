@@ -198,29 +198,50 @@ export default function Invoices() {
     doc.line(margin, y, pageW - margin, y);
 
     // ── Subtotal / Total block ──
-    y += 8;
-    const subtotalX = pageW - margin - 55;
+    // ── Subtotal rows ──
+y += 8;
+const labelX = pageW - margin - 65;
+const valueX = pageW - margin - 4;
 
-    const drawRow = (label, value, bold = false, highlight = false) => {
-      if (highlight) {
-        doc.setFillColor(108, 63, 207);
-        doc.roundedRect(subtotalX - 5, y - 5, 60, 10, 2, 2, "F");
-        doc.setTextColor(255, 255, 255);
-      } else {
-        doc.setTextColor(bold ? 30 : 100, bold ? 30 : 100, bold ? 30 : 100);
-      }
-      doc.setFont("helvetica", bold ? "bold" : "normal");
-      doc.setFontSize(bold ? 10 : 9);
-      doc.text(label, subtotalX, y + 2);
-      doc.text(value, pageW - margin - 4, y + 2, { align: "right" });
-      y += 12;
-      doc.setTextColor(30, 30, 30);
-    };
+// Helper for normal rows
+const drawSummaryRow = (label, value) => {
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.setTextColor(100, 100, 100);
+  doc.text(label, labelX, y);
+  doc.setTextColor(30, 30, 30);
+  doc.text(value, valueX, y, { align: "right" });
+  y += 9;
+};
 
-    drawRow("Subtotal", fmt(inv.total_amount));
-    drawRow("VAT (0%)", fmt(0));
-    drawRow("TOTAL DUE", fmt(inv.total_amount), true, true);
+drawSummaryRow("Subtotal", fmt(inv.total_amount));
+drawSummaryRow("VAT (0%)", fmt(0));
 
+// ── TOTAL DUE highlighted box ──
+y += 2;
+const totalFormatted = fmt(inv.total_amount);
+// Box spans from labelX - 5 to right margin
+const boxX = labelX - 5;
+const boxW = pageW - margin - boxX;
+const boxH = 13;
+
+doc.setFillColor(108, 63, 207);
+doc.roundedRect(boxX, y - 2, boxW, boxH, 2, 2, "F");
+
+doc.setTextColor(255, 255, 255);
+doc.setFont("helvetica", "bold");
+
+// Label on left of box
+doc.setFontSize(9);
+doc.text("TOTAL DUE", boxX + 5, y + 6);
+
+// Amount on right of box — smaller font if number is long
+const fontSize = totalFormatted.length > 10 ? 9 : 11;
+doc.setFontSize(fontSize);
+doc.text(totalFormatted, valueX, y + 6, { align: "right" });
+
+y += boxH + 4;
+doc.setTextColor(30, 30, 30);
     // ── Status badge ──
     y += 4;
     const statusColor = inv.status === "paid" ? [34, 197, 94] : inv.status === "overdue" ? [239, 68, 68] : [245, 158, 11];
