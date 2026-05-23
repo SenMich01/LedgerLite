@@ -197,17 +197,55 @@ export default function Invoices() {
     doc.setDrawColor(220, 220, 230);
     doc.line(margin, y, pageW - margin, y);
 
-    // ── Subtotal / Total block ──
-    // ── Subtotal rows ──
-y += 8;
-const labelX = pageW - margin - 65;
-const valueX = pageW - margin - 4;
+    // ── PDF uses NGN prefix since jsPDF can't render ₦ symbol ──
+const fmtPDF = (n) =>
+  "NGN " + new Intl.NumberFormat("en-NG", { maximumFractionDigits: 0 }).format(n);
 
-// Helper for normal rows
-const drawSummaryRow = (label, value) => {
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.setTextColor(100, 100, 100);
+// ── Divider ──
+y += 4;
+doc.setDrawColor(220, 220, 230);
+doc.line(margin, y, pageW - margin, y);
+y += 10;
+
+// ── Summary rows ──
+const rowLabelX = pageW - margin - 70;
+const rowValueX = pageW - margin;
+
+const summaryRow = (label, value, bold = false) => {
+  doc.setFont("helvetica", bold ? "bold" : "normal");
+  doc.setFontSize(bold ? 11 : 9);
+  doc.setTextColor(bold ? 20 : 110, bold ? 20 : 110, bold ? 20 : 110);
+  doc.text(label, rowLabelX, y);
+  doc.setFont("helvetica", bold ? "bold" : "normal");
+  doc.setTextColor(bold ? 20 : 80, bold ? 20 : 80, bold ? 20 : 80);
+  doc.text(fmtPDF(value), rowValueX, y, { align: "right" });
+  y += bold ? 0 : 10;
+};
+
+// Subtotal
+summaryRow("Subtotal", inv.total_amount);
+
+// VAT
+summaryRow("VAT (0%)", 0);
+
+// Separator line before total
+y += 2;
+doc.setDrawColor(200, 200, 210);
+doc.line(rowLabelX - 2, y, pageW - margin, y);
+y += 8;
+
+// TOTAL DUE — bold black, no box
+doc.setFont("helvetica", "bold");
+doc.setFontSize(11);
+doc.setTextColor(20, 20, 20);
+doc.text("TOTAL DUE", rowLabelX, y);
+
+doc.setFontSize(13);
+doc.setTextColor(20, 20, 20);
+doc.text(fmtPDF(inv.total_amount), rowValueX, y, { align: "right" });
+
+y += 14;
+doc.setTextColor(30, 30, 30);
   doc.text(label, labelX, y);
   doc.setTextColor(30, 30, 30);
   doc.text(value, valueX, y, { align: "right" });
