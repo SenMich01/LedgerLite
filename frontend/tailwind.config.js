@@ -2,17 +2,13 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#6C3FCF",
-        success: "#22C55E",
-        danger: "#EF4444",
-        warning: "#F59E0B",
-        background: "#F9FAFB",
-        dark: "#1E1B4B",
+        primary: '#6C3FCF',
+        sidebar: '#1E1B4B',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
