@@ -38,8 +38,9 @@ export default function Layout() {
       <aside className="hidden md:flex flex-col w-60 bg-[#1E1B4B] shrink-0 h-full">
         {/* Logo */}
         <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10">
-          <img src="/logo.png" alt="LedgerLite"
-            className="w-9 h-9 rounded-xl object-contain bg-white p-0.5" />
+          <div className="w-9 h-9 bg-white rounded-xl flex items-center justify-center p-0.5">
+  <LogoIcon size={28} />
+</div>
           <span className="text-white font-bold text-lg tracking-tight">LedgerLite</span>
         </div>
 
@@ -130,8 +131,9 @@ export default function Layout() {
           </button>
 
           <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="LedgerLite"
-              className="w-7 h-7 rounded-lg object-contain" />
+            <div className="w-7 h-7 bg-white rounded-lg flex items-center justify-center">
+  <LogoIcon size={22} />
+</div>
             <span className="font-bold text-gray-900 text-base">LedgerLite</span>
           </div>
 
