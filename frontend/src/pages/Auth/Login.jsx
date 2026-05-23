@@ -28,9 +28,8 @@ export default function Login() {
 
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-purple-600 rounded-2xl mb-4">
-            <span className="text-white text-2xl font-bold">L</span>
-          </div>
+          <img src="/logo.png" alt="LedgerLite"
+  className="w-16 h-16 object-contain mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gray-900">LedgerLite</h1>
           <p className="text-gray-500 text-sm mt-1">Smart bookkeeping for African SMEs</p>
         </div>
