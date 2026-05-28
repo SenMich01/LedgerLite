@@ -1,3 +1,4 @@
+import { useCurrency } from "../context/CurrencyContext";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Plus, Pencil, Trash2, X } from "lucide-react";
@@ -57,7 +58,7 @@ export default function Transactions() {
     setShowModal(true);
   }
 
-  const fmt = (n) => new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
+  const { fmt } = useCurrency();
   const filtered = filter === "all" ? transactions : transactions.filter(t => t.type === filter);
   const totalIncome = transactions.filter(t => t.type === "income").reduce((s, t) => s + Number(t.amount), 0);
   const totalExpense = transactions.filter(t => t.type === "expense").reduce((s, t) => s + Number(t.amount), 0);
