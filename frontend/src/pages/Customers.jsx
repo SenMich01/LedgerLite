@@ -1,3 +1,4 @@
+import { useCurrency } from "../context/CurrencyContext";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Plus, Pencil, Trash2, X, User } from "lucide-react";
@@ -40,7 +41,7 @@ export default function Customers() {
     fetchCustomers();
   }
 
-  const fmt = (n) => new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
+  const { fmt } = useCurrency();
   const filtered = customers.filter(c => c.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
