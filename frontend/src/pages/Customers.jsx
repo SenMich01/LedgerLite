@@ -56,7 +56,7 @@ export default function Customers() {
       <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search customers..."
         className="w-full max-w-sm border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
 
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden overflow-x-auto">
         {loading ? <div className="p-8 text-center text-gray-400 text-sm">Loading...</div>
           : filtered.length === 0 ? (
             <div className="p-12 text-center text-gray-400">
@@ -64,7 +64,7 @@ export default function Customers() {
               <p className="text-sm">No customers yet</p>
             </div>
           ) : (
-            <table className="w-full">
+            <table className="w-full min-w-[600px]">
               <thead className="bg-gray-50 border-b border-gray-100">
                 <tr>
                   {["Name", "Phone", "Email", "Outstanding", "Actions"].map(h => (
