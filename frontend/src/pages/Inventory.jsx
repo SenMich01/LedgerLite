@@ -1,3 +1,4 @@
+import { useCurrency } from "../context/CurrencyContext";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Plus, Pencil, Trash2, X, Package, AlertTriangle } from "lucide-react";
@@ -40,7 +41,7 @@ export default function Inventory() {
     fetchProducts();
   }
 
-  const fmt = (n) => new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
+  const { fmt } = useCurrency();
   const filtered = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
   const lowStock = products.filter(p => p.stock_quantity <= p.low_stock_threshold);
 
