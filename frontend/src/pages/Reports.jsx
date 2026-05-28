@@ -1,3 +1,4 @@
+import { useCurrency } from "../context/CurrencyContext";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
@@ -27,7 +28,7 @@ export default function Reports() {
     setLoading(false);
   }
 
-  const fmt = (n) => new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
+  const { fmt } = useCurrency();
   const income = transactions.filter(t => t.type === "income");
   const expenses = transactions.filter(t => t.type === "expense");
   const totalIncome = income.reduce((s, t) => s + Number(t.amount), 0);
