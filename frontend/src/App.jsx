@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-route
 import { supabase } from "./lib/supabase";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import Layout from "./components/Layout/Layout";
+import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Dashboard from "./pages/Dashboard";
@@ -22,23 +23,28 @@ function AppRoutes() {
     supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
-      if (event === "SIGNED_IN" || event === "USER_UPDATED") navigate("/dashboard", { replace: true });
-      if (event === "SIGNED_OUT") navigate("/login", { replace: true });
+      if (event === "SIGNED_IN" || event === "USER_UPDATED")
+        navigate("/dashboard", { replace: true });
+      if (event === "SIGNED_OUT")
+        navigate("/", { replace: true });
     });
     return () => subscription.unsubscribe();
   }, []);
 
   if (session === undefined) return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center gap-4">
-      <div className="w-8 h-8 border-4 border-purple-600 border-t-transparent rounded-full animate-spin" />
+    <div className="min-h-screen bg-[#1E1B4B] flex items-center justify-center">
+      <div className="w-8 h-8 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" />
     </div>
   );
 
   return (
     <Routes>
+      {/* Public routes */}
+      <Route path="/"       element={<Home />} />
       <Route path="/login"  element={session ? <Navigate to="/dashboard" replace /> : <Login />} />
       <Route path="/signup" element={session ? <Navigate to="/dashboard" replace /> : <Signup />} />
-      <Route path="/" element={<Navigate to={session ? "/dashboard" : "/login"} replace />} />
+
+      {/* Protected app routes */}
       <Route element={session ? <Layout /> : <Navigate to="/login" replace />}>
         <Route path="/dashboard"    element={<Dashboard />} />
         <Route path="/transactions" element={<Transactions />} />
@@ -49,7 +55,8 @@ function AppRoutes() {
         <Route path="/reports"      element={<Reports />} />
         <Route path="/settings"     element={<Settings />} />
       </Route>
-      <Route path="*" element={<Navigate to={session ? "/dashboard" : "/login"} replace />} />
+
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
