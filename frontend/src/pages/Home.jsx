@@ -471,63 +471,87 @@ export default function Home() {
       </section>
 
       {/* ── PRICING ────────────────────────────────────────── */}
-      <section id="pricing" className="py-20 px-5 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-purple-600 font-semibold text-sm uppercase tracking-wider">
-              Pricing
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-2 mb-4">
-              Start free. Upgrade when you grow.
-            </h2>
-            <p className="text-gray-500 max-w-lg mx-auto">
-              No credit card required to start. Affordable plans designed for
-              Nigerian and African business owners.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6 items-start">
-            <PricingCard
-              plan="Free" price="Free"
-              desc="Perfect for getting started"
-              features={[
-                "Up to 50 transactions/month",
-                "Basic income & expense tracking",
-                "1 invoice per month",
-                "Dashboard overview",
-                "Mobile app access",
-              ]}
-              highlight={false} cta="Get Started Free" to="/signup"
-            />
-            <PricingCard
-              plan="Pro" price="₦2,000"
-              desc="For growing businesses"
-              features={[
-                "Unlimited transactions",
-                "Unlimited invoices & PDFs",
-                "Debt tracking & reminders",
-                "Inventory management",
-                "Full financial reports",
-                "Multi-currency support",
-                "WhatsApp invoice sharing",
-              ]}
-              highlight={true} cta="Start Pro Plan" to="/signup"
-            />
-            <PricingCard
-              plan="Premium" price="₦5,000"
-              desc="For established businesses"
-              features={[
-                "Everything in Pro",
-                "Multi-user staff access",
-                "Role-based permissions",
-                "AI financial insights",
-                "Priority support",
-                "Advanced analytics",
-              ]}
-              highlight={false} cta="Start Premium" to="/signup"
-            />
-          </div>
+<section id="pricing" className="py-20 px-5 bg-gray-50">
+  <div className="max-w-5xl mx-auto">
+    <div className="text-center mb-14">
+      <span className="text-purple-600 font-semibold text-sm uppercase tracking-wider">
+        Pricing
+      </span>
+      <h2 className="text-3xl md:text-4xl font-black text-gray-900 mt-2 mb-4">
+        Free during beta. No limits. No catches.
+      </h2>
+      <p className="text-gray-500 max-w-lg mx-auto">
+        LedgerLite is completely free while we grow our user base.
+        Get full access to every feature — no credit card, no transaction
+        limits, no expiry date.
+      </p>
+    </div>
+
+    {/* Single beta card */}
+    <div className="max-w-lg mx-auto">
+      <div className="relative bg-[#1E1B4B] rounded-2xl p-8 text-white
+                      shadow-2xl shadow-purple-900/30">
+        {/* Badge */}
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500
+                        text-white text-xs font-bold px-5 py-1.5 rounded-full">
+          🎉 BETA — LIMITED TIME
         </div>
-      </section>
+
+        <div className="text-center mb-7">
+          <p className="text-purple-300 font-semibold text-sm mb-2">Free Beta Access</p>
+          <div className="flex items-baseline justify-center gap-1 mb-2">
+            <span className="text-6xl font-black text-white">₦0</span>
+            <span className="text-white/40 text-sm">/forever</span>
+          </div>
+          <p className="text-white/50 text-sm">
+            Full access while we grow our community
+          </p>
+        </div>
+
+        {/* Features list */}
+        <ul className="space-y-3 mb-8">
+          {[
+            "Unlimited income & expense tracking",
+            "Unlimited invoices with PDF download",
+            "Debt tracking & customer management",
+            "Inventory management & stock alerts",
+            "Full financial reports & analytics",
+            "Multi-currency support (NGN, USD, GBP +7 more)",
+            "WhatsApp invoice sharing",
+            "Mobile-friendly dashboard",
+            "Secure cloud data storage",
+          ].map(f => (
+            <li key={f} className="flex items-start gap-3">
+              <CheckCircle size={17}
+                className="text-green-400 shrink-0 mt-0.5" />
+              <span className="text-white/80 text-sm">{f}</span>
+            </li>
+          ))}
+        </ul>
+
+        <Link to="/signup"
+          className="block w-full text-center bg-purple-600 hover:bg-purple-500
+                     text-white font-bold py-4 rounded-xl text-base
+                     transition-all hover:scale-105">
+          Create Free Account →
+        </Link>
+
+        <p className="text-center text-white/30 text-xs mt-4">
+          No credit card · No hidden fees · Cancel anytime
+        </p>
+      </div>
+    </div>
+
+    {/* Coming soon note */}
+    <div className="text-center mt-10">
+      <p className="text-gray-400 text-sm">
+        Paid plans with advanced features coming soon.
+        Early users get <span className="text-purple-600 font-semibold">
+        locked-in discounted pricing</span> for life.
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* ── FINAL CTA ──────────────────────────────────────── */}
       <section className="py-20 px-5 bg-[#1E1B4B] relative overflow-hidden">
